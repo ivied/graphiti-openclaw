@@ -1,0 +1,50 @@
+# Graphiti MCP Server — OpenClaw Configuration
+# Uses 9router (OpenAI-compat proxy for Claude) + local embedder + Neo4j
+
+server:
+  transport: "stdio"
+
+llm:
+  provider: "openai_compat"  # Custom: uses compat_client for non-Responses-API providers
+  model: "cc/claude-sonnet-4-5-20250929"
+  small_model: "cc/claude-haiku-4-5-20251001"
+  max_tokens: 4096
+
+  providers:
+    openai:
+      api_key: ${NROUTER_API_KEY}
+      api_url: ${NROUTER_BASE_URL}
+
+embedder:
+  provider: "sentence_transformers"
+  model: "all-MiniLM-L6-v2"
+  dimensions: 384
+
+database:
+  provider: "neo4j"
+  providers:
+    neo4j:
+      uri: "bolt://localhost:7687"
+      username: "neo4j"
+      password: "testpassword123"
+
+graphiti:
+  group_id: "openclaw"
+  user_id: "mara"
+  entity_types:
+    - name: "Decision"
+      description: "A decision made during a task or project — WHY it was made, alternatives considered"
+    - name: "Person"
+      description: "A person (team member, contact, client) and their attributes"
+    - name: "Project"
+      description: "A project, task, or work item being tracked"
+    - name: "Preference"
+      description: "User preferences, choices, opinions, or selections"
+    - name: "Procedure"
+      description: "Standard operating procedures, workflows, and sequential instructions"
+    - name: "Tool"
+      description: "Software tools, services, APIs, and their configurations"
+    - name: "Problem"
+      description: "Issues, bugs, blockers encountered — root cause and resolution"
+    - name: "Organization"
+      description: "Companies, agencies, groups, or formal entities"

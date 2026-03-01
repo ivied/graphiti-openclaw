@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "graphiti-openclaw"
+version = "0.1.0"
+description = "OpenAI-compatible adapters for Graphiti context graph engine"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+authors = [
+    {name = "OpenClaw Contributors"}
+]
+keywords = ["graphiti", "context-graph", "knowledge-graph", "llm", "openai-compatible"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "graphiti-core>=0.28",
+    "openai>=1.0",
+    "pydantic>=2.0",
+]
+
+[project.optional-dependencies]
+local-embedder = [
+    "sentence-transformers>=2.0",
+    "torch>=2.0",
+]
+all = [
+    "graphiti-openclaw[local-embedder]",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21",
+    "ruff>=0.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/ivied/graphiti-openclaw"
+Repository = "https://github.com/ivied/graphiti-openclaw"
+Issues = "https://github.com/ivied/graphiti-openclaw/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
