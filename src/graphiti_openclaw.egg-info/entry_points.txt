@@ -1,2 +1,0 @@
-[console_scripts]
-graphiti-oc = graphiti_openclaw.cli:main
