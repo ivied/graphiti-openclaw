@@ -1,8 +1,19 @@
 # graphiti-openclaw
 
+[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![PyPI - graphiti-core](https://img.shields.io/badge/graphiti--core-0.28+-purple.svg)](https://pypi.org/project/graphiti-core/)
+
 **OpenAI-compatible adapters for [Graphiti](https://github.com/getzep/graphiti) context graph engine.**
 
-Graphiti 0.28+ uses the OpenAI Responses API (`client.responses.parse`) which isn't supported by most OpenAI-compatible proxies. This package provides drop-in replacements that use the classic Chat Completions API instead.
+## The Problem
+
+Graphiti 0.28+ switched to the [OpenAI Responses API](https://platform.openai.com/docs/api-reference/responses) (`client.responses.parse`), which is:
+- **Not supported** by most OpenAI-compatible proxies (OpenRouter, LiteLLM, vLLM, Ollama, etc.)
+- **Not available** if you're using Anthropic, Mistral, or other LLMs through a proxy
+- **A blocker** for self-hosted and custom LLM setups
+
+This package provides drop-in replacements that use the classic **Chat Completions API** instead, making Graphiti work with any OpenAI-compatible endpoint.
 
 ## What's Inside
 
@@ -64,6 +75,38 @@ graphiti = Graphiti(
 ```
 
 See [examples/poc.py](examples/poc.py) for a full working example.
+
+### Proxy Configuration Examples
+
+**OpenRouter:**
+```python
+llm_config = LLMConfig(
+    api_key="sk-or-v1-...",
+    base_url="https://openrouter.ai/api/v1",
+    model="anthropic/claude-sonnet-4-20250514",
+    small_model="anthropic/claude-haiku-4-20250414",
+)
+```
+
+**LiteLLM:**
+```python
+llm_config = LLMConfig(
+    api_key="sk-...",
+    base_url="http://localhost:4000/v1",
+    model="claude-sonnet-4-20250514",
+    small_model="claude-haiku-4-20250414",
+)
+```
+
+**Ollama (local models):**
+```python
+llm_config = LLMConfig(
+    api_key="ollama",
+    base_url="http://localhost:11434/v1",
+    model="llama3.1:70b",
+    small_model="llama3.1:8b",
+)
+```
 
 ## Requirements
 

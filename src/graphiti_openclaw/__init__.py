@@ -9,7 +9,14 @@ Provides:
 """
 
 from graphiti_openclaw.compat_client import CompatOpenAIClient
-from graphiti_openclaw.local_embedder import LocalEmbedder
 
 __version__ = "0.1.0"
-__all__ = ["CompatOpenAIClient", "LocalEmbedder"]
+__all__ = ["CompatOpenAIClient"]
+
+try:
+    from graphiti_openclaw.local_embedder import LocalEmbedder
+    __all__.append("LocalEmbedder")
+except ImportError:
+    # sentence-transformers not installed — LocalEmbedder unavailable
+    # Install with: pip install graphiti-openclaw[local-embedder]
+    pass
