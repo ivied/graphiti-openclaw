@@ -44,6 +44,9 @@ dev = [
     "ruff>=0.1",
 ]
 
+[project.scripts]
+graphiti-oc = "graphiti_openclaw.cli:main"
+
 [project.urls]
 Homepage = "https://github.com/ivied/graphiti-openclaw"
 Repository = "https://github.com/ivied/graphiti-openclaw"
