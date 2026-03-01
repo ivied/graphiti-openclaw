@@ -108,6 +108,32 @@ llm_config = LLMConfig(
 )
 ```
 
+## CLI Tool
+
+The package includes a CLI for quick interaction with your context graph:
+
+```bash
+# Check graph status
+graphiti-oc status
+# 📊 Context Graph Status
+#    Neo4j: bolt://localhost:7687
+#    Total nodes: 101
+#    Episodes: 13
+#    Entities: 88
+
+# Add context from text
+graphiti-oc add "We decided to use Postgres instead of MongoDB for better JOIN support"
+
+# Add context from a file
+graphiti-oc add --file notes/2026-03-01.md
+
+# Search the graph
+graphiti-oc search "What database did we choose?"
+# → We decided to use Postgres instead of MongoDB for better JOIN support
+```
+
+The CLI auto-loads configuration from `~/.openclaw/openclaw.json` (LLM settings) and the Graphiti config YAML (Neo4j credentials).
+
 ## Requirements
 
 - Python 3.11+
